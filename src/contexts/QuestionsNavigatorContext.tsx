@@ -1,5 +1,5 @@
 import React from 'react';
-import Scroll from 'react-scroll';
+import { scroller } from 'react-scroll';
 
 export const QuestionsNavContext = React.createContext();
 
@@ -18,33 +18,38 @@ export function QuestionsNavigatorProvider({
 }: ApplicationProviderProps) {
   const questionIndex = React.useRef(-1);
 
+  // Scroll to the intro section.
   const moveToIntro = React.useCallback(() => {
-    Scroll.scroller.scrollTo(`intro`, configuration);
+    scroller.scrollTo(`intro`, configuration);
   }, []);
 
+  // Scroll to to the first question section.
   const moveToFirstQuestion = React.useCallback(() => {
     questionIndex.current = 1;
     const newIndex = questionIndex.current;
 
-    Scroll.scroller.scrollTo(`question-${newIndex}`, configuration);
+    scroller.scrollTo(`question-${newIndex}`, configuration);
   }, []);
 
+  // Scroll to the given question index.
   const moveToIndexQuestionSection = React.useCallback((index: number) => {
     questionIndex.current = index;
     const newIndex = questionIndex.current;
 
-    Scroll.scroller.scrollTo(`question-${newIndex}`, configuration);
+    scroller.scrollTo(`question-${newIndex}`, configuration);
   }, []);
 
+  // Scroll to the next question index.
   const moveToNextQuestion = React.useCallback(() => {
     const index = questionIndex.current;
     questionIndex.current = Math.min(index + 1, 8);
 
     const newIndex = questionIndex.current;
 
-    Scroll.scroller.scrollTo(`question-${newIndex}`, configuration);
+    scroller.scrollTo(`question-${newIndex}`, configuration);
   }, []);
 
+  // Scroll to the previous question index.
   const moveToPreviousQuestion = React.useCallback(() => {
     const index = questionIndex.current;
     questionIndex.current = Math.max(index - 1, 0);
@@ -54,7 +59,7 @@ export function QuestionsNavigatorProvider({
     if (newIndex === 0) {
       return moveToIntro();
     }
-    Scroll.scroller.scrollTo(`question-${questionIndex}`, configuration);
+    scroller.scrollTo(`question-${questionIndex}`, configuration);
   }, []);
 
   const value = {
@@ -62,7 +67,7 @@ export function QuestionsNavigatorProvider({
     moveToFirstQuestion,
     moveToNextQuestion,
     moveToPreviousQuestion,
-    moveToIndexQuestionSection
+    moveToIndexQuestionSection,
   };
 
   return <QuestionsNavContext.Provider value={value} children={children} />;
