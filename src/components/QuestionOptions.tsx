@@ -6,13 +6,13 @@ import {
   QuestionOptionAnchor
 } from "./QuestionOptions.style";
 
-interface QuestionOptionProps {
+export interface QuestionOptionProps {
   label: string;
   index: number;
   isChecked?: boolean;
   onSelect?: (e: QuestionOptionOnSelectEvent) => void;
 }
-interface QuestionOptionOnSelectEvent {
+export interface QuestionOptionOnSelectEvent {
   label: string;
   index: number;
 }

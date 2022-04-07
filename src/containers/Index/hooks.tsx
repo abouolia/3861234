@@ -1,8 +1,18 @@
 import React from 'react';
-import { useFormikContext } from 'formik';
+import { useQuestionsFormContext } from './QuestionsSectionsFormik';
 
-export const useQuestionsForm = () => {
-  const { values } = useFormikContext();
+interface UnansweredQuestionForm {
+  getNextUnansweredIndex: (fromIndex: number) => number;
+  getBackwardUnansweredIndex: (fromIndex: number) => number;
+  getUnansweredIndex: (fromIndex: number) => number | null;
+}
+
+/**
+ * Retrieves questions form API to get the next, backward unanswered question.
+ * @returns {UnansweredQuestionForm}
+ */
+export const useQuestionsForm = (): UnansweredQuestionForm => {
+  const { values } = useQuestionsFormContext();
 
   // Retrieves the next index of unanswered question.
   const getNextUnansweredIndex = React.useCallback(

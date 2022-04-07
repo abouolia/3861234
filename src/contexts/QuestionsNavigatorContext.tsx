@@ -2,7 +2,20 @@ import React from 'react';
 import { scroller } from 'react-scroll';
 import { Questions } from '../data';
 
-export const QuestionsNavContext = React.createContext();
+export interface QuestionsNavigatorContextProps {
+  questionIndex: number;
+  moveToFirstQuestion?: () => void;
+  moveToNextQuestion?: () => void;
+  moveToPreviousQuestion?: () => void;
+  moveToIndexQuestionSection?: (index: number) => void;
+}
+
+const defaultQUestionsNavigator = {
+  questionIndex: -1,
+};
+
+export const QuestionsNavContext =
+  React.createContext<QuestionsNavigatorContextProps>(defaultQUestionsNavigator);
 
 interface ApplicationProviderProps {
   children: JSX.Element | JSX.Element[];
@@ -66,7 +79,7 @@ export function QuestionsNavigatorProvider({
   }, []);
 
   const value = {
-    questionIdnex: questionIndex.current,
+    questionIndex: questionIndex.current,
     moveToFirstQuestion,
     moveToNextQuestion,
     moveToPreviousQuestion,

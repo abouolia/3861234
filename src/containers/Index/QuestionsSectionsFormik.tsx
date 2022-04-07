@@ -1,5 +1,10 @@
 import React from 'react';
-import { Formik, FormikHelpers } from 'formik';
+import {
+  Formik,
+  FormikHelpers,
+  useFormikContext,
+  FormikContextType,
+} from 'formik';
 import { useRouter } from 'next/router';
 import { QuestionsSectionsFields } from './QuestionsSections';
 import { Questions } from '../../data';
@@ -21,10 +26,16 @@ export function QuestionsSectionsForm(): JSX.Element {
         values: FormikValues,
         { setSubmitting }: FormikHelpers<FormikValues>
       ) => {
-        router.push('https://news.airbnb.com/tripmatcher/personalities/pop_culture_junkie.html');
+        router.push(
+          'https://news.airbnb.com/tripmatcher/personalities/pop_culture_junkie.html'
+        );
       }}
     >
       <QuestionsSectionsFields />
     </Formik>
   );
 }
+
+export const useQuestionsFormContext = (): FormikContextType<FormikValues> => {
+  return useFormikContext<FormikValues>();
+};

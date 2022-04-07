@@ -9,26 +9,29 @@ import {
   QuestionTitle,
   LineVertical
 } from "../../components";
-import { QuestionOptionsField } from "./QuestionOptionsField";
+import { QuestionOptionsRadioField } from "./QuestionOptionsField";
 
-interface QuestionSectionProps {
+export interface QuestionSectionProps {
   id?: string;
   title: string;
   leftImage?: string;
   leftImageAlt?: string;
   options: { label: string }[];
-
   questionIndex: number;
   totalQuestionsLength: string | number;
 }
 
+/**
+ * Question section of homepage.
+ * @param   {QuestionSectionProps} props - 
+ * @returns {JSX.Element}
+ */
 export function QuestionSection({
   id,
   title,
   leftImage,
   leftImageAlt,
   options,
-
   questionIndex,
   totalQuestionsLength
 }: QuestionSectionProps) {
@@ -49,7 +52,7 @@ export function QuestionSection({
         </QuestionSectionLeft>
 
         <QuestionSectionRight>
-          <QuestionOptionsField
+          <QuestionOptionsRadioField
             options={options}
             questionIndex={questionIndex}
           />

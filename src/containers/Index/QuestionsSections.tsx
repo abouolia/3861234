@@ -1,17 +1,18 @@
 import React from 'react';
-import { useFormikContext, FieldArray } from 'formik';
+import { FieldArray } from 'formik';
 import { useDeepCompareEffect } from 'react-use';
 
 import { QuestionsSectionRoot } from './QuestionsSections.style';
 import { QuestionSection } from './QuestionSection';
 import { Questions } from '../../data';
+import { useQuestionsFormContext } from './QuestionsSectionsFormik';
 
 /**
  *
  * @returns {JSX.Element}
  */
 function QuestionsFields() {
-  const { values } = useFormikContext();
+  const { values } = useQuestionsFormContext();
 
   return values.questions.map((question, index) => (
     <QuestionSection
@@ -30,7 +31,7 @@ function QuestionsFields() {
  * Redirects the another page once all questions have answer.
  */
 function useRedirectOnceAllQuestionsHaveAnswer() {
-  const { submitForm, values } = useFormikContext();
+  const { submitForm, values } = useQuestionsFormContext();
 
   useDeepCompareEffect(() => {
     const noneAnswered = values.questions.filter(
