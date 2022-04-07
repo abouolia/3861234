@@ -1,5 +1,6 @@
 import React from 'react';
 import { scroller } from 'react-scroll';
+import { Questions } from '../data';
 
 export const QuestionsNavContext = React.createContext();
 
@@ -12,6 +13,8 @@ const configuration = {
   delay: 0,
   smooth: 'easeInOutQuint',
 };
+
+const MAX_LENGH = Questions.length;
 
 export function QuestionsNavigatorProvider({
   children,
@@ -42,7 +45,7 @@ export function QuestionsNavigatorProvider({
   // Scroll to the next question index.
   const moveToNextQuestion = React.useCallback(() => {
     const index = questionIndex.current;
-    questionIndex.current = Math.min(index + 1, 8);
+    questionIndex.current = Math.min(index + 1, MAX_LENGH);
 
     const newIndex = questionIndex.current;
 
@@ -59,7 +62,7 @@ export function QuestionsNavigatorProvider({
     if (newIndex === 0) {
       return moveToIntro();
     }
-    scroller.scrollTo(`question-${questionIndex}`, configuration);
+    scroller.scrollTo(`question-${newIndex}`, configuration);
   }, []);
 
   const value = {
